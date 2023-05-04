@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Word Builder</title>
-</head>
-<body>
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+  </head>
+  <body>
     <h1>Word Builder</h1>
-    <p>The aimb of the game is to build the correct word with the given letters.<br>
-    You will have 2 panels: A word panel where you will see what letters you entered and a letters panel that you can make use of to enter the letters, e.g. click on them and they will show up in the word panel.</p>
+    <p>
+      The aimb of the game is to build the correct word with the given
+      letters.<br />
+      You will have 2 panels: A word panel where you will see what letters you
+      entered and a letters panel that you can make use of to enter the letters,
+      e.g. click on them and they will show up in the word panel.
+    </p>
     <div>letters panel</div>
+    <hr />
     <div id="letters" title="Letters panel"></div>
     <div>words panel</div>
+    <hr />
     <div id="words" title="words panel"></div>
-    <button id="delete">Delete last letter</button>
+    <button id="delete" class="keyboard_backspace">Delete last letter</button>
     <script src="./script.js"></script>
-</body>
+  </body>
 </html>

@@ -43,6 +43,8 @@ function makeLettersClickable() {
   wordArr.forEach((v) => {
     const letterBtn = document.createElement("button");
     letterBtn.textContent = v;
+    letterBtn.className = "keyboard";
+    letterBtn.id = "letter";
     letterBtn.addEventListener("click", (e) => {
       wordsDiv.textContent += e.target.textContent;
       checkWord();
