@@ -32,23 +32,26 @@ function shuffleArray(arr) {
 }
 
 //get random word
-const chosenWord = getWord();
+let chosenWord = getWord();
 //turn the chosen word into an array
-const wordArr = chosenWord.split("");
+let wordArr = chosenWord.split("");
 //shuffle the word
 shuffleArray(wordArr);
 //let's turn each letter into a button that the user can click
 
-wordArr.forEach((v) => {
-  const letterBtn = document.createElement("button");
-  letterBtn.textContent = v;
-  letterBtn.addEventListener("click", (e) => {
-    wordsDiv.textContent += e.target.textContent;
-    checkWord();
+function makeLettersClickable() {
+  wordArr.forEach((v) => {
+    const letterBtn = document.createElement("button");
+    letterBtn.textContent = v;
+    letterBtn.addEventListener("click", (e) => {
+      wordsDiv.textContent += e.target.textContent;
+      checkWord();
+    });
+    lettersDiv.appendChild(letterBtn);
   });
-  lettersDiv.appendChild(letterBtn);
-});
+}
 
+makeLettersClickable();
 //Let's make the delete button do it's job
 
 deleteBtn.addEventListener("click", (e) => {
@@ -66,6 +69,11 @@ deleteBtn.addEventListener("click", (e) => {
 function checkWord() {
   if (wordsDiv.textContent.toString() == chosenWord) {
     alert("Well done!\nYou got the word and it was " + chosenWord);
+    chosenWord = getWord();
+    wordArr = chosenWord.split("");
+    shuffleArray(wordArr);
+    lettersDiv.textContent = "";
+    wordsDiv.textContent = "";
+    makeLettersClickable();
   }
-  console.log(wordsDiv.textContent == chosenWord);
 }
