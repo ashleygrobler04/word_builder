@@ -1,22 +1,15 @@
 const lettersDiv = document.getElementById("letters");
 const wordsDiv = document.getElementById("words");
 const deleteBtn = document.getElementById("delete");
-const words = [
-  "test",
-  "train",
-  "drink",
-  "pray",
-  "water",
-  "ice",
-  "people",
-  "school",
-  "computer",
-  "title",
-];
 
 //let's get a random word from the words array:
 
-function getWord() {
+async function getWord() {
+  const fetchUrl =
+    "https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt";
+  const data = await fetch(fetchUrl);
+  const wordList = await data.text();
+  const words = wordList.split("\r\n");
   let randomNum = Math.floor(Math.random() * words.length);
   return words[randomNum];
 }
@@ -32,24 +25,30 @@ function shuffleArray(arr) {
 }
 
 //get random word
-let chosenWord = getWord();
+let chosenWord = getWord()
+  .then((v) => v)
+  .then((v2) => {
+    return v2.toString();
+  });
 //turn the chosen word into an array
-let wordArr = chosenWord.split("");
+let wordArr = chosenWord.then((v) => v.split(""));
 //shuffle the word
-shuffleArray(wordArr);
+wordArr.then((a) => shuffleArray(a));
 //let's turn each letter into a button that the user can click
 
 function makeLettersClickable() {
-  wordArr.forEach((v) => {
-    const letterBtn = document.createElement("button");
-    letterBtn.textContent = v;
-    letterBtn.className = "keyboard";
-    letterBtn.id = "letter";
-    letterBtn.addEventListener("click", (e) => {
-      wordsDiv.textContent += e.target.textContent;
-      checkWord();
+  wordArr.then((a) => {
+    a.forEach((v) => {
+      const letterBtn = document.createElement("button");
+      letterBtn.textContent = v;
+      letterBtn.className = "keyboard";
+      letterBtn.id = "letter";
+      letterBtn.addEventListener("click", (e) => {
+        wordsDiv.textContent += e.target.textContent;
+        checkWord();
+      });
+      lettersDiv.appendChild(letterBtn);
     });
-    lettersDiv.appendChild(letterBtn);
   });
 }
 
@@ -69,13 +68,22 @@ deleteBtn.addEventListener("click", (e) => {
 //let's write a function to check if the word the player entered matches the chosen word
 
 function checkWord() {
-  if (wordsDiv.textContent.toString() == chosenWord) {
-    alert("Well done!\nYou got the word and it was " + chosenWord);
-    chosenWord = getWord();
-    wordArr = chosenWord.split("");
-    shuffleArray(wordArr);
-    lettersDiv.textContent = "";
-    wordsDiv.textContent = "";
-    makeLettersClickable();
-  }
+  chosenWord.then((w) => {
+    if (wordsDiv.textContent.toString() == w) {
+      alert("Well done!\nYou got the word and it was " + w);
+      chosenWord = getWord()
+        .then((v) => v)
+        .then((v2) => {
+          return v2.toString();
+        });
+      //turn the chosen word into an array
+      wordArr = chosenWord.then((v) => v.split(""));
+      //shuffle the word
+      wordArr.then((a) => shuffleArray(a));
+
+      lettersDiv.textContent = "";
+      wordsDiv.textContent = "";
+      makeLettersClickable();
+    }
+  });
 }
