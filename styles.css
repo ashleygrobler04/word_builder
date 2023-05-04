@@ -7,6 +7,7 @@ body {
     color: white;
     position: relative;
     bottom: 15%;
+    display: inline;
 }
 #words {
     width: 100%;
@@ -22,7 +23,7 @@ body {
     left: 90%;
     bottom: 90%;
     border-style: double;
-    border-radius: 10%;;
+    border-radius: 10%;
 }
 hr {
     width: 80%;
